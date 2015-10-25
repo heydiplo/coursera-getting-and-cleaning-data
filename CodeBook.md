@@ -4,11 +4,11 @@ This document describes how `run_analysys.R` works.
 
 ## Preparations
 
-Read variable names and filter the ones which with mean or standard deviation (contains `mean()` or `std()`).
+Read variable names and filter the ones which contains mean or standard deviation (contains `mean()` or `std()`).
 
 ```r
 all_var_names <- read.table("features.txt")$V2
-var_filter <- grepl("(mean|std)\\(\\)", all_var_names) # TRUE-FALSE filter for variables
+var_filter <- grepl("(mean|std)\\(\\)", all_var_names)
 ```
 
 Read activities dictionary for later use.
@@ -83,6 +83,7 @@ Now it looks like this:
  $ tGravityAcc-std()-X        : num  -0.897 -0.959 -0.983 -0.921 -0.946 ...
  $ tGravityAcc-std()-Y        : num  -0.908 -0.988 -0.981 -0.97 -0.986 ...
  $ tGravityAcc-std()-Z        : num  -0.852 -0.984 -0.965 -0.976 -0.977 ...
+ ...
 ```
 
 ## Output
@@ -92,3 +93,21 @@ Write resulting dataset to the standard output.
 ```r
 write.table(averages, file = "", row.name = FALSE)
 ```
+
+## Variables
+
+`all_var_names` – proper variable names.
+
+`var_filter` - boolean vector indication whenether we should pick given variable
+
+`activities_dict` - dictionary with proper activities names
+
+`train_dataset` - train dataset, with proper variable names and activity and subject columns
+
+`test_dataset` - test dataset, with proper variable names and activity and subject columns
+
+`merged_dataset` - train and tests datasets together
+
+`melted_dataset` - merged dataset in long format
+
+`averages` - tidy data set with the average of each variable for each activity and each subject in merged dataset
